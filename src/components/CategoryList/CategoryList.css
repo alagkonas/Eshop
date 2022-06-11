@@ -1,0 +1,9 @@
+#grid {
+  padding: 0 !important;
+  margin-top: 2rem !important;
+  max-width: 300px !important;
+}
+
+#card-div {
+  max-width: 300px !important;
+}
