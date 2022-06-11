@@ -3,9 +3,17 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { CategoriesTypes } from './types';
 import './CategoryList.css';
 
-const CategoryListItem: React.FC = () => {
+type CategoryListItemProps = CategoriesTypes;
+
+const CategoryListItem: React.FC<CategoryListItemProps> = ({
+  name,
+  id,
+  img,
+  category,
+}) => {
   return (
     <div id='card-div'>
       <Card sx={{ maxWidth: 300 }}>
@@ -18,7 +26,7 @@ const CategoryListItem: React.FC = () => {
           />
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
-              Lizard
+              {name}
             </Typography>
             {/* <Typography variant='body2' color='text.secondary'>
               Lizards are a widespread group of squamate reptiles, with over

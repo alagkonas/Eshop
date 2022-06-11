@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,7 +18,7 @@ const Navbar: React.FC = () => {
             component='div'
             sx={{ flexGrow: 1 }}
           >
-            !!Eshop's Name!!
+            <Link to='/'>!!Eshop's Name!!</Link>
           </Typography>
           <Button color='inherit'>Register / Login</Button>
           <IconButton color='inherit'>
