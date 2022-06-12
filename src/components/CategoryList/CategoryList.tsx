@@ -1,14 +1,34 @@
 import { Link } from 'react-router-dom';
 import CategoryListItem from './CategoryListItem';
 import Grid from '@mui/material/Grid';
-import { CategoriesTypes } from './types';
+import { CategoryTypes } from '../../@types';
 import './CategoryList.css';
 
-const categories: CategoriesTypes[] = [
-  { id: 1, name: `Men's clothing`, category: 'mens_clothing', img: '' },
-  { id: 2, name: `Women's clothing`, category: 'womens_clothing', img: '' },
-  { id: 3, name: `Jewelry`, category: 'jewelry', img: '' },
-  { id: 4, name: `Electronics`, category: 'electronics', img: '' },
+const categories: CategoryTypes[] = [
+  {
+    id: 1,
+    name: `Men's clothing`,
+    category: 'mens_clothing',
+    img: 'https://github.com/alagkonas/Eshop/blob/master/src/assets/mens.jpg',
+  },
+  {
+    id: 2,
+    name: `Women's clothing`,
+    category: 'womens_clothing',
+    img: 'src/assets/categoryImages/womens.jpg',
+  },
+  {
+    id: 3,
+    name: `Jewelry`,
+    category: 'jewelry',
+    img: 'src/assets/categoryImages/jewelry.jpg',
+  },
+  {
+    id: 4,
+    name: `Electronics`,
+    category: 'electronics',
+    img: 'src/assets/categoryImages/electronics.jpg',
+  },
 ];
 
 const CategoryList: React.FC = () => {
