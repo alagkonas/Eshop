@@ -1,4 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
+import { app } from '../../firebase.config';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -15,9 +22,46 @@ import {
   typographyStyles3,
   buttonStyles,
 } from './styles';
+import { FormDataTypes } from '../../@types';
 import './SignUp.css';
 
+const initialState: FormDataTypes = {
+  name: '',
+  email: '',
+  password: '',
+};
+
 const SignUp: React.FC = () => {
+  const [formData, setFormData] = useState<FormDataTypes>(initialState);
+
+  const { name, email, password } = formData;
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const onSubmit = async () => {
+    try {
+      const auth: any = getAuth(app);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const user = userCredential.user;
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div id='form-div'>
       <Card sx={cardStyles}>
@@ -28,27 +72,33 @@ const SignUp: React.FC = () => {
           <CardContent sx={cardContentStyles}>
             <TextField
               sx={textFieldStyles}
-              id='outlined-textarea'
+              id='name'
               label='Username'
               placeholder='johndoe'
               type='text'
+              value={name}
+              onChange={onChange}
             />
             <TextField
               sx={textFieldStyles}
-              id='outlined-textarea'
+              id='email'
               label='Email'
               placeholder='johndoe@gmail.com'
               type='email'
+              value={email}
+              onChange={onChange}
             />
             <TextField
               sx={textFieldStyles}
-              id='outlined-'
+              id='password'
               label='Password'
               placeholder='password'
               type='password'
+              value={password}
+              onChange={onChange}
             />
           </CardContent>
-          <Button sx={buttonStyles} variant='contained'>
+          <Button onClick={onSubmit} sx={buttonStyles} variant='contained'>
             Sign Up
           </Button>
           <Typography
@@ -59,7 +109,11 @@ const SignUp: React.FC = () => {
           >
             OR
           </Typography>
-          <Button variant='contained' endIcon={<GoogleIcon />}>
+          <Button
+            onClick={onSubmit}
+            variant='contained'
+            endIcon={<GoogleIcon />}
+          >
             Continue with Google
           </Button>
           <Typography
