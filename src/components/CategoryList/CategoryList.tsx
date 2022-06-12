@@ -9,25 +9,25 @@ const categories: CategoryTypes[] = [
     id: 1,
     name: `Men's clothing`,
     category: 'mens_clothing',
-    img: 'https://github.com/alagkonas/Eshop/blob/master/src/assets/mens.jpg',
+    img: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
   },
   {
     id: 2,
     name: `Women's clothing`,
     category: 'womens_clothing',
-    img: 'src/assets/categoryImages/womens.jpg',
+    img: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
   },
   {
     id: 3,
     name: `Jewelry`,
     category: 'jewelry',
-    img: 'src/assets/categoryImages/jewelry.jpg',
+    img: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
   },
   {
     id: 4,
     name: `Electronics`,
     category: 'electronics',
-    img: 'src/assets/categoryImages/electronics.jpg',
+    img: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
   },
 ];
 
