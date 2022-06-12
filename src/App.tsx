@@ -3,6 +3,8 @@ import './App.css';
 import Home from './pages/Home';
 import CategoryProducts from './pages/CategoryProducts';
 import Product from './pages/Product';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/Signin';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
           <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/sign_up' element={<SignUp />} />
+            <Route path='/sign_in' element={<SignIn />} />
             <Route
               path='products/:categoryName'
               element={<CategoryProducts />}
