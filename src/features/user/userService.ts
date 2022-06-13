@@ -7,7 +7,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { app } from '../../firebase.config';
-import { FormDataTypes, SignInFormDataTypes } from '../../@types';
+import { FormDataTypes, SignInFormDataTypes, UserTypes } from '../../@types';
 
 const auth: any = getAuth(app);
 
@@ -27,7 +27,7 @@ const registerUser = async (userData: FormDataTypes) => {
 
   const { displayName: userName, email: userEmail } = user;
 
-  const userInfo = {
+  const userInfo: UserTypes = {
     userName,
     userEmail,
   };
@@ -50,7 +50,7 @@ const loginUser = async (formData: SignInFormDataTypes) => {
 
   const { displayName: userName, email: userEmail } = user;
 
-  const userInfo = {
+  const userInfo: UserTypes = {
     userName,
     userEmail,
   };
@@ -66,7 +66,7 @@ const googleAuth = async () => {
   const user = result.user;
   const { displayName: userName, email: userEmail } = user;
 
-  const userInfo = {
+  const userInfo: UserTypes = {
     userName,
     userEmail,
   };
@@ -76,10 +76,16 @@ const googleAuth = async () => {
   return userInfo;
 };
 
+const logoutUser = () => {
+  auth.signOut();
+  localStorage.removeItem('authUser');
+};
+
 const userService = {
   registerUser,
   loginUser,
   googleAuth,
+  logoutUser,
 };
 
 export default userService;

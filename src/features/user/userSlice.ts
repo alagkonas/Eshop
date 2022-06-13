@@ -3,11 +3,15 @@ import {
   UserInitialStateTypes,
   FormDataTypes,
   SignInFormDataTypes,
+  UserTypes,
 } from '../../@types';
 import userService from './userService';
 
+// @ts-ignore
+const user: UserTypes = JSON.parse(localStorage.getItem('authUser'));
+
 const initialState: UserInitialStateTypes = {
-  user: null,
+  user: user ? user : null,
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -48,6 +52,10 @@ export const googleAuth = createAsyncThunk(
       return thunkAPI.rejectWithValue(message);
     }
   }
+);
+
+export const logout = createAsyncThunk('user/logout', () =>
+  userService.logoutUser()
 );
 
 export const userSlice = createSlice({
@@ -104,6 +112,14 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.message = action.payload;
+      })
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = null;
       });
   },
 });
