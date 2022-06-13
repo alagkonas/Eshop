@@ -1,3 +1,7 @@
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import { SPECIFIC_PRODUCT } from '../../config';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -13,22 +17,32 @@ import {
   typographyStyles,
   buttonStyles,
 } from './styles';
+import { ProductTypes } from '../../@types';
 import './Product.css';
 
 const Product: React.FC = () => {
+  const { productId } = useParams<string>();
+  const { data, isLoading }: any = useQuery(
+    //@ts-ignore
+    productId,
+    async () => await axios.get(SPECIFIC_PRODUCT + `/${productId}`)
+  );
+
+  const productData: ProductTypes = data.data;
+
   return (
     <div id='product-div'>
       <Card sx={cardStyles}>
         <CardMedia
           component='img'
           sx={imageStyles}
-          image='https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'
+          image={productData.image}
           alt='Live from space album cover'
         />
         <Box sx={boxStyles}>
           <CardContent sx={cardContentStyles}>
             <Typography component='div' variant='h5'>
-              Nameeeeeeeeeeee
+              {productData.title}
             </Typography>
             <Box sx={infoStyles}>
               <Typography
@@ -36,14 +50,14 @@ const Product: React.FC = () => {
                 color='text.secondary'
                 component='div'
               >
-                Rating to 5
+                Rating: {productData.rating?.rate} / 5
               </Typography>
               <Typography
                 variant='subtitle1'
                 color='text.secondary'
                 component='div'
               >
-                (Ratings)
+                Ratings ({productData.rating?.count})
               </Typography>
             </Box>
             <Typography
@@ -52,7 +66,7 @@ const Product: React.FC = () => {
               color='text.secondary'
               component='div'
             >
-              Description
+              {productData.description}
             </Typography>
             <Typography
               sx={typographyStyles}
@@ -60,7 +74,7 @@ const Product: React.FC = () => {
               color='text.secondary'
               component='div'
             >
-              Price
+              Price: {productData.price}$
             </Typography>
             <Button sx={buttonStyles} variant='contained'>
               Add to cart

@@ -10,6 +10,7 @@ export const infoStyles = {
 export const imageStyles = {
   width: 400,
   height: 500,
+  objectFit: 'contain',
 };
 
 export const cardStyles = {
@@ -20,6 +21,7 @@ export const cardStyles = {
 export const boxStyles = {
   display: 'flex',
   flexDirection: 'column',
+  width: 500,
 };
 
 export const cardContentStyles = {

@@ -3,24 +3,29 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { ProductTypes } from '../../@types';
+import './ProductList.css';
 
-const ProductListItem: React.FC = () => {
+const ProductListItem: React.FC<ProductTypes> = ({ image, title }) => {
   return (
     <div>
-      <Card sx={{ maxWidth: 300 }}>
+      <Card sx={{ maxWidth: 300, height: 450, alignContent: 'center' }}>
         <CardActionArea>
           <CardMedia
             component='img'
-            height='250'
-            src='https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'
+            height='300'
+            sx={{ objectFit: 'contain' }}
+            src={image}
             alt='green iguana'
           />
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
-              Name
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              Lizards are a widespread group of squamate reptiles, with over
+          <CardContent sx={{ alignContent: 'center' }}>
+            <Typography
+              sx={{ alignContent: 'center' }}
+              gutterBottom
+              variant='h5'
+              component='div'
+            >
+              {title}
             </Typography>
           </CardContent>
         </CardActionArea>
