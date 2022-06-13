@@ -1,6 +1,6 @@
 export type UserTypes = {
-  userName: string;
-  email: string;
+  userName: string | null;
+  userEmail: string | null;
 };
 
 export type UserInitialStateTypes = {
@@ -8,5 +8,5 @@ export type UserInitialStateTypes = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
-  message: string;
+  message: any;
 };

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
-import { app } from '../../firebase.config';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { register } from '../../features/user/userSlice';
+// import {
+//   getAuth,
+//   createUserWithEmailAndPassword,
+//   updateProfile,
+// } from 'firebase/auth';
+// import { app } from '../../firebase.config';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -36,30 +38,40 @@ const SignUp: React.FC = () => {
 
   const { name, email, password } = formData;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
   };
 
-  const onSubmit = async () => {
-    try {
-      const auth: any = getAuth(app);
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+  const dispatch = useAppDispatch();
 
-      const user = userCredential.user;
-      updateProfile(auth.currentUser, {
-        displayName: name,
-      });
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
+  const onSubmit = () => {
+    const userData: FormDataTypes = {
+      name,
+      email,
+      password,
+    };
+
+    dispatch(register(userData));
+
+    // try {
+    //   const auth: any = getAuth(app);
+    //   const userCredential = await createUserWithEmailAndPassword(
+    //     auth,
+    //     email,
+    //     password
+    //   );
+    //   await updateProfile(auth.currentUser, {
+    //     displayName: name,
+    //   });
+    //   const user = userCredential.user;
+    //   // const { displayName, email: userEmail } = user
+    //   console.log(user.displayName, user.email);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
