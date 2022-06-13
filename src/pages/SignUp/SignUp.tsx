@@ -1,13 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { register } from '../../features/user/userSlice';
-// import {
-//   getAuth,
-//   createUserWithEmailAndPassword,
-//   updateProfile,
-// } from 'firebase/auth';
-// import { app } from '../../firebase.config';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { register, googleAuth, reset } from '../../features/user/userSlice';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -15,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import GoogleIcon from '@mui/icons-material/Google';
+import { toast } from 'react-toastify';
 import {
   cardStyles,
   boxStyles,
@@ -24,7 +19,7 @@ import {
   typographyStyles3,
   buttonStyles,
 } from './styles';
-import { FormDataTypes } from '../../@types';
+import { FormDataTypes, UserInitialStateTypes } from '../../@types';
 import './SignUp.css';
 
 const initialState: FormDataTypes = {
@@ -35,6 +30,23 @@ const initialState: FormDataTypes = {
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState<FormDataTypes>(initialState);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { isSuccess, isError, isLoading, message } =
+    useAppSelector<UserInitialStateTypes>((state) => state.user);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(reset());
+      navigate('/');
+    }
+    if (isError) {
+      toast.error(message);
+      setFormData(initialState);
+    }
+    // eslint-disable-next-line
+  }, [isSuccess, isError]);
 
   const { name, email, password } = formData;
 
@@ -45,34 +57,15 @@ const SignUp: React.FC = () => {
     }));
   };
 
-  const dispatch = useAppDispatch();
-
-  const onSubmit = () => {
-    const userData: FormDataTypes = {
-      name,
-      email,
-      password,
-    };
-
-    dispatch(register(userData));
-
-    // try {
-    //   const auth: any = getAuth(app);
-    //   const userCredential = await createUserWithEmailAndPassword(
-    //     auth,
-    //     email,
-    //     password
-    //   );
-    //   await updateProfile(auth.currentUser, {
-    //     displayName: name,
-    //   });
-    //   const user = userCredential.user;
-    //   // const { displayName, email: userEmail } = user
-    //   console.log(user.displayName, user.email);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  const onSubmit = (): void => {
+    dispatch(register(formData));
   };
+
+  const onGoogleAuth = (): void => {
+    dispatch(googleAuth());
+  };
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div id='form-div'>
@@ -122,7 +115,7 @@ const SignUp: React.FC = () => {
             OR
           </Typography>
           <Button
-            onClick={onSubmit}
+            onClick={onGoogleAuth}
             variant='contained'
             endIcon={<GoogleIcon />}
           >

@@ -1,4 +1,8 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { login, googleAuth, reset } from '../../features/user/userSlice';
+import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -16,8 +20,52 @@ import {
   buttonStyles,
 } from '../SignUp/styles';
 import './Signin.css';
+import { SignInFormDataTypes, UserInitialStateTypes } from '../../@types';
+
+const initialState: SignInFormDataTypes = {
+  email: '',
+  password: '',
+};
 
 const Signin: React.FC = () => {
+  const [formData, setFormData] = useState<SignInFormDataTypes>(initialState);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { isSuccess, isError, isLoading, message } =
+    useAppSelector<UserInitialStateTypes>((state) => state.user);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(reset());
+      navigate('/');
+    }
+    if (isError) {
+      toast.error(message);
+      setFormData(initialState);
+    }
+    // eslint-disable-next-line
+  }, [isSuccess, isError]);
+
+  const { email, password } = formData;
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (): void => {
+    dispatch(login(formData));
+  };
+
+  const onGoogleAuth = (): void => {
+    dispatch(googleAuth());
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+
   return (
     <div id='form2-div'>
       <Card sx={cardStyles}>
@@ -27,21 +75,25 @@ const Signin: React.FC = () => {
           </Typography>
           <CardContent sx={cardContentStyles}>
             <TextField
+              onChange={onChange}
               sx={textFieldStyles}
-              id='outlined-textarea'
+              id='email'
               label='Email'
               placeholder='johndoe@gmail.com'
               type='email'
+              value={email}
             />
             <TextField
+              onChange={onChange}
               sx={textFieldStyles}
-              id='outlined-'
+              id='password'
               label='Password'
               placeholder='password'
               type='password'
+              value={password}
             />
           </CardContent>
-          <Button sx={buttonStyles} variant='contained'>
+          <Button onClick={onSubmit} sx={buttonStyles} variant='contained'>
             Sign In
           </Button>
           <Typography
@@ -52,7 +104,11 @@ const Signin: React.FC = () => {
           >
             OR
           </Typography>
-          <Button variant='contained' endIcon={<GoogleIcon />}>
+          <Button
+            onClick={onGoogleAuth}
+            variant='contained'
+            endIcon={<GoogleIcon />}
+          >
             Continue with Google
           </Button>
           <Typography
