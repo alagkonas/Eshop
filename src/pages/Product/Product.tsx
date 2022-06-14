@@ -28,6 +28,8 @@ const Product: React.FC = () => {
     async () => await axios.get(SPECIFIC_PRODUCT + `/${productId}`)
   );
 
+  if (isLoading) return <p>Loading...</p>;
+
   const productData: ProductTypes = data.data;
 
   return (
