@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hooks';
 import { useQuery } from 'react-query';
+import { addProduct } from '../../features/cart';
 import axios from 'axios';
 import { SPECIFIC_PRODUCT } from '../../config';
 import Box from '@mui/material/Box';
@@ -27,6 +29,12 @@ const Product: React.FC = () => {
     productId,
     async () => await axios.get(SPECIFIC_PRODUCT + `/${productId}`)
   );
+
+  const dispatch = useAppDispatch();
+
+  const onProductAdd = (): void => {
+    dispatch(addProduct(productData));
+  };
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -78,7 +86,11 @@ const Product: React.FC = () => {
             >
               Price: {productData.price}$
             </Typography>
-            <Button sx={buttonStyles} variant='contained'>
+            <Button
+              onClick={onProductAdd}
+              sx={buttonStyles}
+              variant='contained'
+            >
               Add to cart
             </Button>
           </CardContent>
