@@ -41,7 +41,9 @@ const Navbar: React.FC = () => {
                 <Button color='inherit'>Register / Login</Button>
               </Link>
             )}
-            <CartButton />
+            <Link to={`/${user?.userName}/shopping_cart`}>
+              <CartButton />
+            </Link>
           </Toolbar>
         </AppBar>
       </Box>

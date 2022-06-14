@@ -8,7 +8,9 @@ import CategoryProducts from './pages/CategoryProducts';
 import Product from './pages/Product';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/Signin';
+import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
               path='/products/:categoryName/:productId'
               element={<Product />}
             />
+            <Route path='/:userName/shopping_cart' element={<PrivateRoute />}>
+              <Route path='/:userName/shopping_cart' element={<Cart />} />
+            </Route>
           </Routes>
         </div>
         ;
