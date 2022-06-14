@@ -11,21 +11,22 @@ import {
   infoStyles,
   typographyStyles,
 } from './styles';
+import { ProductTypes } from '../../@types';
 
-const CartItem: React.FC = () => {
+const CartItem: React.FC<ProductTypes> = ({ image, title, price, rating }) => {
   return (
     <div>
       <Card sx={cardStyles}>
         <CardMedia
           component='img'
           sx={imageStyles}
-          image='https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg'
+          image={image}
           alt='Live from space album cover'
         />
         <Box sx={boxStyles}>
           <CardContent sx={cardContentStyles}>
             <Typography component='div' variant='h5'>
-              productData.title
+              {title}
             </Typography>
             <Box sx={infoStyles}>
               <Typography
@@ -33,14 +34,14 @@ const CartItem: React.FC = () => {
                 color='text.secondary'
                 component='div'
               >
-                Rating: productData.rating?.rate / 5
+                Rating: {rating?.rate} / 5
               </Typography>
               <Typography
                 variant='subtitle1'
                 color='text.secondary'
                 component='div'
               >
-                Ratings (productData.rating?.count)
+                Ratings ({rating?.count})
               </Typography>
             </Box>
             <Typography
@@ -49,7 +50,7 @@ const CartItem: React.FC = () => {
               color='text.secondary'
               component='div'
             >
-              Price: productData.price$
+              Price: {price}$
             </Typography>
           </CardContent>
         </Box>
