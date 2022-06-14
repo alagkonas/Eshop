@@ -1,5 +1,12 @@
+import CartItem from '../../components/CartItem';
+import './Cart.css';
+
 const Cart: React.FC = () => {
-  return <div>Cart</div>;
+  return (
+    <div id='cart-div'>
+      <CartItem />
+    </div>
+  );
 };
 
 export default Cart;
