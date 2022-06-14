@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../features/user/userSlice';
+import CartButton from '../CartButton';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
@@ -42,9 +41,7 @@ const Navbar: React.FC = () => {
                 <Button color='inherit'>Register / Login</Button>
               </Link>
             )}
-            <IconButton color='inherit'>
-              <ShoppingCartOutlinedIcon />
-            </IconButton>
+            <CartButton />
           </Toolbar>
         </AppBar>
       </Box>
