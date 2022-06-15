@@ -7,3 +7,5 @@ export const JEWELRY_CATEGORY = `https://fakestoreapi.com/products/category/jewe
 export const ELECTRONICS_CATEGORY = `https://fakestoreapi.com/products/category/electronics`;
 
 export const SPECIFIC_PRODUCT = `https://fakestoreapi.com/products`;
+
+export const ALL_PRODUCTS = `https://fakestoreapi.com/products`;

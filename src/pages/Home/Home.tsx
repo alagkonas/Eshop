@@ -1,17 +1,12 @@
 import './Home.css';
-import TextField from '@mui/material/TextField';
 import CategoryList from '../../components/CategoryList';
+import SearchBar from '../../components/SearchBar';
 
 const Home: React.FC = () => {
   return (
     <div id='home-div'>
       <div id='search-bar'>
-        <TextField
-          id='outlined-search'
-          label='Find your product'
-          type='search'
-          fullWidth={true}
-        />
+        <SearchBar />
       </div>
       <CategoryList />
     </div>
