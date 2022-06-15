@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { addProduct } from '../../features/cart';
 import axios from 'axios';
 import { SPECIFIC_PRODUCT } from '../../config';
+import Breadcrumb from '../../components/Breadcrumb';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -23,6 +24,7 @@ import { ProductTypes } from '../../@types';
 import './Product.css';
 
 const Product: React.FC = () => {
+  const { categoryName } = useParams<string>();
   const { productId } = useParams<string>();
   const { data, isLoading }: any = useQuery(
     //@ts-ignore
@@ -41,62 +43,65 @@ const Product: React.FC = () => {
   const productData: ProductTypes = data.data;
 
   return (
-    <div id='product-div'>
-      <Card sx={cardStyles}>
-        <CardMedia
-          component='img'
-          sx={imageStyles}
-          image={productData.image}
-          alt='Live from space album cover'
-        />
-        <Box sx={boxStyles}>
-          <CardContent sx={cardContentStyles}>
-            <Typography component='div' variant='h5'>
-              {productData.title}
-            </Typography>
-            <Box sx={infoStyles}>
+    <>
+      <Breadcrumb categoryName={categoryName} />
+      <div id='product-div'>
+        <Card sx={cardStyles}>
+          <CardMedia
+            component='img'
+            sx={imageStyles}
+            image={productData.image}
+            alt='Live from space album cover'
+          />
+          <Box sx={boxStyles}>
+            <CardContent sx={cardContentStyles}>
+              <Typography component='div' variant='h5'>
+                {productData.title}
+              </Typography>
+              <Box sx={infoStyles}>
+                <Typography
+                  variant='subtitle1'
+                  color='text.secondary'
+                  component='div'
+                >
+                  Rating: {productData.rating?.rate} / 5
+                </Typography>
+                <Typography
+                  variant='subtitle1'
+                  color='text.secondary'
+                  component='div'
+                >
+                  Ratings ({productData.rating?.count})
+                </Typography>
+              </Box>
               <Typography
+                sx={typographyStyles}
                 variant='subtitle1'
                 color='text.secondary'
                 component='div'
               >
-                Rating: {productData.rating?.rate} / 5
+                {productData.description}
               </Typography>
               <Typography
+                sx={typographyStyles}
                 variant='subtitle1'
                 color='text.secondary'
                 component='div'
               >
-                Ratings ({productData.rating?.count})
+                Price: {productData.price}$
               </Typography>
-            </Box>
-            <Typography
-              sx={typographyStyles}
-              variant='subtitle1'
-              color='text.secondary'
-              component='div'
-            >
-              {productData.description}
-            </Typography>
-            <Typography
-              sx={typographyStyles}
-              variant='subtitle1'
-              color='text.secondary'
-              component='div'
-            >
-              Price: {productData.price}$
-            </Typography>
-            <Button
-              onClick={onProductAdd}
-              sx={buttonStyles}
-              variant='contained'
-            >
-              Add to cart
-            </Button>
-          </CardContent>
-        </Box>
-      </Card>
-    </div>
+              <Button
+                onClick={onProductAdd}
+                sx={buttonStyles}
+                variant='contained'
+              >
+                Add to cart
+              </Button>
+            </CardContent>
+          </Box>
+        </Card>
+      </div>
+    </>
   );
 };
 
