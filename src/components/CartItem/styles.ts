@@ -35,4 +35,5 @@ export const infoStyles = {
 
 export const typographyStyles = {
   mt: 1,
+  mb: 4,
 };
