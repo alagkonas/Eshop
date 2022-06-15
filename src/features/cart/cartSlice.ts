@@ -21,6 +21,18 @@ export const addProduct = createAsyncThunk(
   }
 );
 
+export const removeProduct = createAsyncThunk(
+  'cart/remove',
+  (products: ProductTypes[], thunkAPI) => {
+    try {
+      return products;
+    } catch (error: any) {
+      const message: string = error.message.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -46,6 +58,19 @@ export const cartSlice = createSlice({
       .addCase(addProduct.rejected, (state, action) => {
         state.isError = true;
         state.isLoading = false;
+        state.message = action.payload;
+      })
+      .addCase(removeProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.products = action.payload;
+      })
+      .addCase(removeProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
         state.message = action.payload;
       });
   },

@@ -18,7 +18,8 @@ const Cart: React.FC = () => {
             {products.map((product) => {
               return (
                 <CartItem
-                  key={product.id}
+                  key={product.id?.toString()}
+                  id={product.id}
                   //@ts-ignore
                   image={product.image}
                   price={product.price}
@@ -27,9 +28,9 @@ const Cart: React.FC = () => {
                 />
               );
             })}
+            <Button variant='contained'>Click to pay</Button>
           </>
         )}
-        <Button variant='contained'>Click to pay</Button>
       </div>
     </>
   );

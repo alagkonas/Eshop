@@ -1,3 +1,5 @@
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { removeProduct } from '../../features/cart';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,7 +16,25 @@ import {
 } from './styles';
 import { ProductTypes } from '../../@types';
 
-const CartItem: React.FC<ProductTypes> = ({ image, title, price, rating }) => {
+const CartItem: React.FC<ProductTypes> = ({
+  id,
+  image,
+  title,
+  price,
+  rating,
+}) => {
+  const { products } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+
+  let modifiedShoppingCart: ProductTypes[] = [];
+
+  const onRemoveProduct = (productId: number | undefined): void => {
+    modifiedShoppingCart = products.filter((product) => {
+      return product.id !== productId;
+    });
+    dispatch(removeProduct(modifiedShoppingCart));
+  };
+
   return (
     <div>
       <Card sx={cardStyles}>
@@ -53,7 +73,9 @@ const CartItem: React.FC<ProductTypes> = ({ image, title, price, rating }) => {
             >
               Price: {price}$
             </Typography>
-            <Button variant='contained'>remove</Button>
+            <Button onClick={() => onRemoveProduct(id)} variant='contained'>
+              remove
+            </Button>
           </CardContent>
         </Box>
       </Card>
