@@ -7,24 +7,30 @@ import './CategoryList.css';
 const categories: CategoryTypes[] = [
   {
     id: 1,
+    name: `All products`,
+    category: 'all_products',
+    img: 'https://media.istockphoto.com/photos/flat-lay-with-womans-clothes-and-accessories-picture-id1339264709?b=1&k=20&m=1339264709&s=170667a&w=0&h=qzBCqQvXpk-eLH8e72ZRaWRPuvWFwcUKZqGr1IsyTlE=',
+  },
+  {
+    id: 2,
     name: `Men's clothing`,
     category: 'mens_clothing',
     img: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
   },
   {
-    id: 2,
+    id: 3,
     name: `Women's clothing`,
     category: 'womens_clothing',
     img: 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg',
   },
   {
-    id: 3,
+    id: 4,
     name: `Jewelry`,
     category: 'jewelry',
     img: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
   },
   {
-    id: 4,
+    id: 5,
     name: `Electronics`,
     category: 'electronics',
     img: 'https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg',

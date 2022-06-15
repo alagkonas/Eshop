@@ -29,9 +29,6 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
             <Typography gutterBottom variant='h5' component='div'>
               {name}
             </Typography>
-            {/* <Typography variant='body2' color='text.secondary'>
-              Lizards are a widespread group of squamate reptiles, with over
-            </Typography> */}
           </CardContent>
         </CardActionArea>
       </Card>

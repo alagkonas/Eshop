@@ -7,6 +7,7 @@ import {
   WOMENS_CATEGORY,
   ELECTRONICS_CATEGORY,
   JEWELRY_CATEGORY,
+  ALL_PRODUCTS,
 } from '../../config';
 import { ProductListTypes, ProductTypes } from '../../@types';
 import Grid from '@mui/material/Grid';
@@ -28,6 +29,9 @@ const ProductList: React.FC = () => {
   }
   if (categoryName === 'electronics') {
     endpoint = ELECTRONICS_CATEGORY;
+  }
+  if (categoryName === 'all_products') {
+    endpoint = ALL_PRODUCTS;
   }
 
   // @ts-ignore
