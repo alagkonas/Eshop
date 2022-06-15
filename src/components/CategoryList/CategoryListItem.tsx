@@ -19,6 +19,7 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
       <Card sx={{ maxWidth: 300 }}>
         <CardActionArea>
           <CardMedia
+            sx={{ objectFit: 'contain' }}
             component='img'
             height='250'
             src={img}

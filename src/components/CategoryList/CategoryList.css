@@ -6,4 +6,5 @@
 
 #card-div {
   max-width: 300px !important;
+  object-fit: contain !important;
 }
