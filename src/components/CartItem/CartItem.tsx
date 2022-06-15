@@ -1,5 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { removeProduct } from '../../features/cart';
+import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -33,6 +34,7 @@ const CartItem: React.FC<ProductTypes> = ({
       return product.id !== productId;
     });
     dispatch(removeProduct(modifiedShoppingCart));
+    toast.success('Removed from cart!', { delay: 500 });
   };
 
   return (

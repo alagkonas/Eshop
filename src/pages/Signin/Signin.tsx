@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { login, googleAuth, reset } from '../../features/user/userSlice';
+import Spinner from '../../components/Spinner';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -58,13 +59,15 @@ const Signin: React.FC = () => {
 
   const onSubmit = (): void => {
     dispatch(login(formData));
+    toast.success('Login Successful', { delay: 1000 });
   };
 
   const onGoogleAuth = (): void => {
     dispatch(googleAuth());
+    toast.success('Login Successful', { delay: 3500 });
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div id='form2-div'>

@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useQuery } from 'react-query';
 import { addProduct } from '../../features/cart';
 import axios from 'axios';
 import { SPECIFIC_PRODUCT } from '../../config';
+import Spinner from '../../components/Spinner';
+import { toast } from 'react-toastify';
 import Breadcrumb from '../../components/Breadcrumb';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -24,21 +26,24 @@ import { ProductTypes } from '../../@types';
 import './Product.css';
 
 const Product: React.FC = () => {
+  const { isSuccess } = useAppSelector((state) => state.cart);
   const { categoryName } = useParams<string>();
   const { productId } = useParams<string>();
+  const dispatch = useAppDispatch();
   const { data, isLoading }: any = useQuery(
     //@ts-ignore
     productId,
     async () => await axios.get(SPECIFIC_PRODUCT + `/${productId}`)
   );
 
-  const dispatch = useAppDispatch();
-
   const onProductAdd = (): void => {
     dispatch(addProduct(productData));
+    if (isSuccess) {
+      toast.success('Added to cart!', { delay: 500 });
+    }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
 
   const productData: ProductTypes = data.data;
 

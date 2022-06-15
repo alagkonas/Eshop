@@ -37,8 +37,8 @@ function App() {
         </div>
         ;
       </Router>
-      <ToastContainer theme='dark' pauseOnHover={true} />
-      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+      <ToastContainer theme='light' pauseOnHover={true} />
+      {/* <ReactQueryDevtools initialIsOpen={false} position='bottom-right' /> */}
     </>
   );
 }

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../features/user/userSlice';
 import CartButton from '../CartButton';
+import { toast } from 'react-toastify';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,6 +16,7 @@ const Navbar: React.FC = () => {
 
   const onLogout = () => {
     dispatch(logout());
+    toast.success('Logout Successful', { delay: 1000 });
   };
 
   return (
