@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import ProductListItem from './ProductListItem';
+import Spinner from '../Spinner';
 import {
   MENS_CATEGORY,
   WOMENS_CATEGORY,
@@ -41,7 +42,7 @@ const ProductList: React.FC = () => {
     async () => await axios.get(endpoint)
   );
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div id='items-grid'>
