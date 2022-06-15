@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
               component='div'
               sx={{ flexGrow: 1 }}
             >
-              <Link to='/'>!!Eshop's Name!!</Link>
+              <Link to='/'>CyberStore</Link>
             </Typography>
             {user ? (
               <Link to='/'>

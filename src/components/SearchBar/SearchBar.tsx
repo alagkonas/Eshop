@@ -34,6 +34,7 @@ const SearchBar: React.FC = () => {
           type='search'
           fullWidth={true}
           sx={{ marginRight: 2 }}
+          inputProps={{ autocomplete: 'off' }}
         />
         <CircularProgress size='30px' sx={{ marginTop: 1.5 }} />
       </Box>
